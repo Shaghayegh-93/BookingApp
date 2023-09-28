@@ -16,6 +16,9 @@ export default {
         primar100: "#e0e7ff",
         rose500: "#f43f5e",
       },
+      gridTemplateColumns: {
+        gridAuto: "repeat(auto-fit, minmax(300px, 1fr))",
+      },
     },
   },
   plugins: [],
