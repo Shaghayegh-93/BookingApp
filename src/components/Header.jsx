@@ -7,11 +7,19 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/solid";
 import useOutsideClick from "./hooks/useOutsideClick";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
 
 const Header = () => {
   const [destination, setDestination] = useState("");
   const [isOpenOptions, setIsOpenOptions] = useState(false);
   const [option, setOption] = useState({ adult: 1, children: 1, room: 1 });
+  const [date, setDate] = useState([
+    { startDate: new Date(), endDate: new Date(), key: "selection" },
+  ]);
+  const [isDateOpen, setIsDateOpen] = useState(false);
 
   const optionHandler = (name, operation) => {
     setOption((prev) => {
@@ -24,7 +32,7 @@ const Header = () => {
 
   return (
     <div className="flex items-center justify-center gap-4">
-      <div className="w-full max-w-[900px] flex  flex-col md:flex-row items-center justify-between gap-4 md:border border-[#ebe9e9] rounded-3xl p-4">
+      <div className="w-full max-w-[900px] flex  flex-col md:flex-row items-center justify-between gap-2 md:border border-[#ebe9e9] rounded-3xl p-4">
         <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl w-full md:w-fit">
           <MapPinIcon className="text-rose500 w-6 h-6 inline-block " />
           <input
@@ -36,8 +44,27 @@ const Header = () => {
           />
           <span className="hidden md:inline-block h-[30px] w-[1px] bg-tex400 my-0 mx-4"></span>
         </div>
-        <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl p-4 w-full md:w-fit">
+        <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl p-4 w-full md:w-fit cursor-pointer">
           <CalendarIcon className=" w-6 h-6 inline-block text-primar700 " />
+          
+          <div
+            className="ml-2 text-sm"
+            onClick={() => setIsDateOpen(!isDateOpen)}
+          >
+            {`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
+              date[0].endDate,
+              "dd/MM/yyyy"
+            )} `}
+          </div>
+          {isDateOpen && (
+            <DateRange
+              ranges={date}
+              onChange={(item) => setDate([item.selection])}
+              minDate={new Date()}
+              moveRangeOnFirstSelection={true}
+              className="absolute top-12 -left-1 z-20"
+            />
+          )}
           <div className="mr-2 text-sm">2023</div>
           <span className="hidden md:inline-block h-[30px] w-[1px] bg-tex400 my-0 mx-4"></span>
         </div>
