@@ -8,12 +8,12 @@ export default function useOutsideClick(ref, exeptionId, cb) {
         !ref.current.contains(e.target) &&
         e.target.id !== exeptionId
       ) {
+        cb();
       }
-      cb();
     }
     document.addEventListener("mousedown", handleoutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleoutsideClick);
     };
-  }, [ref, cb]);
+  }, [ref, cb, exeptionId]);
 }
