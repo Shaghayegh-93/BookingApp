@@ -28,7 +28,7 @@ const Header = () => {
     { startDate: new Date(), endDate: new Date(), key: "selection" },
   ]);
   const [isDateOpen, setIsDateOpen] = useState(false);
- 
+
   const navigate = useNavigate();
 
   const optionHandler = (name, operation) => {
@@ -38,7 +38,6 @@ const Header = () => {
         [name]: operation === "dec" ? option[name] - 1 : option[name] + 1,
       };
     });
-    // console.log("click");
   };
   const searchHandler = () => {
     const encodedPrams = createSearchParams({
@@ -47,6 +46,7 @@ const Header = () => {
       option: JSON.stringify(option),
     });
     navigate({ pathname: "/hotels", search: encodedPrams.toString() });
+    // setSearchParams("");
   };
 
   return (
@@ -63,7 +63,7 @@ const Header = () => {
           />
           <span className="hidden md:inline-block h-[30px] w-[1px] bg-tex400 my-0 mx-4"></span>
         </div>
-        <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl p-4 w-full md:w-fit cursor-pointer">
+        <div className="flex z-[1000] items-center relative border md:border-none border-[#ebe9e9] rounded-3xl p-4 w-full md:w-fit cursor-pointer">
           <CalendarIcon className=" w-6 h-6 inline-block text-primar700 " />
 
           <div
@@ -125,7 +125,7 @@ function GusetOptionList({ option, optionHandler, setIsOpenOptions }) {
   return (
     <div
       ref={optionsRef}
-      className="absolute bg-white p-4 border border-tex100 rounded-2xl top-11 md:top-10 right-0 md:-right-[55px] w-full md:w-[220px] z-10 shadow-[0,0,10px,#efefef]"
+      className="absolute bg-white p-4 border border-tex100 rounded-2xl top-11 md:top-10 right-0 md:-right-[55px] w-full md:w-[220px] z-[1000] shadow-[0,0,10px,#efefef]"
     >
       <GusetOptionItem
         option={option}
