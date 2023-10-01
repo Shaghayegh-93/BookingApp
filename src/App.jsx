@@ -1,16 +1,17 @@
 import "./App.css";
 import Header from "./components/Header";
-import  { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import LocationList from "./components/LocationList";
 import { Route, Routes } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
 import Hotels from "./components/Hotels";
+import HotelProvider from "./components/context/HotelProvider";
 
 function App() {
   return (
-    <>
+    <HotelProvider>
       <Toaster />
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<LocationList />} />
         <Route path="/hotels" element={<AppLayout />}>
@@ -18,7 +19,7 @@ function App() {
           <Route path=":id" element={<p>singleHotels</p>} />
         </Route>
       </Routes>
-    </>
+    </HotelProvider>
   );
 }
 
