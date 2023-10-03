@@ -5,14 +5,7 @@ import useFetch from "./hooks/useFetch";
 import { useHotels } from "./context/HotelProvider";
 
 const Hotels = () => {
-  //   const [searchParams, setSearchParams] = useSearchParams();
-  //   const destination = searchParams.get("destination");
-  //   const room = JSON.parse(searchParams.get("option"))?.room;
-  //   const { isLoading, data } = useFetch(
-  //     "http://localhost:5000/hotels",
-  //     `q=${destination || ""} &accommodates_gte=${room || 1}`
-  //   );
-  const { isLoading, data } = useHotels();
+  const { isLoading, data, currentHotel } = useHotels();
 
   if (isLoading) <Loader />;
 
@@ -25,7 +18,11 @@ const Hotels = () => {
             to={`/hotels/${item.id}?lat=${item.latitude}&lng=${item.longitude}`}
             key={item.id}
           >
-            <div className="flex gap-4 flex-col md:flex-row">
+            <div
+              className={`flex gap-4 flex-col md:flex-row ${
+               item.id=== currentHotel.id ? "border bg-tex100 rounded-2xl" : ""
+              }`}
+            >
               <img
                 src={item.picture_url.url}
                 alt={item.name}
