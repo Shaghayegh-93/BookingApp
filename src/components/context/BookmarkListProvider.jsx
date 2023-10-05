@@ -8,8 +8,8 @@ const BASE_URL = "http://localhost:5000";
 
 function BookmarkListProvider({ children }) {
   const [currentBookmarkList, setCurrentBookmarkList] = useState(null);
-  const [isLoadingCurrentBookmarkList, setIsLoadingCurrentBookmarkList] =useState(false);
-    
+  const [isLoadingCurrentBookmarkList, setIsLoadingCurrentBookmarkList] =
+    useState(false);
 
   const { data, isLoading } = useFetch(`${BASE_URL}/bookmarks`);
 
@@ -23,7 +23,6 @@ function BookmarkListProvider({ children }) {
       toast.error(error?.message);
       setIsLoadingCurrentBookmarkList(false);
     }
-   
   }
   return (
     <BookmarkListContext.Provider
