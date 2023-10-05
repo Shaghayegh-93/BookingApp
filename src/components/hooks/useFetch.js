@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 export default function useFetch(url, query = "") {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  console.log(data)
 
   useEffect(() => {
     async function fetchData() {
@@ -15,8 +16,10 @@ export default function useFetch(url, query = "") {
       } catch (error) {
         setData([]);
         toast.error(error?.message);
+        console.log(error)
       } finally {
         setIsLoading(false);
+
       }
     }
     fetchData();
