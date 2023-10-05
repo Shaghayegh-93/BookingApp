@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
-import useFetch from "./hooks/useFetch";
+// import useFetch from "./hooks/useFetch";
 import { useHotels } from "./context/HotelProvider";
 
 const Hotels = () => {
@@ -20,7 +20,9 @@ const Hotels = () => {
           >
             <div
               className={`flex gap-4 flex-col md:flex-row ${
-               item.id=== currentHotel.id ? "border bg-tex100 rounded-2xl" : ""
+                item.id === currentHotel?.id
+                  ? "border bg-tex100 rounded-2xl"
+                  : ""
               }`}
             >
               <img
