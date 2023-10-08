@@ -1,5 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
-import useFetch from "../hooks/useFetch";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -8,30 +13,68 @@ const BASE_URL = "http://localhost:5000";
 
 function BookmarkListProvider({ children }) {
   const [currentBookmarkList, setCurrentBookmarkList] = useState(null);
-  const [isLoadingCurrentBookmarkList, setIsLoadingCurrentBookmarkList] =
-    useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { data, isLoading } = useFetch(`${BASE_URL}/bookmarks`);
+  useEffect(() => {
+    async function fetchBookmarkList() {
+      setIsLoading(true);
+      try {
+        const { data } = await axios.get(`${BASE_URL}/bookmarks`);
+        setBookmarks(data);
+      } catch (error) {
+        toast.error(error?.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchBookmarkList();
+  }, []);
 
   async function getBookmark(id) {
-    setIsLoadingCurrentBookmarkList(true);
+    setIsLoading(true);
     try {
       const { data } = await axios.get(`${BASE_URL}/bookmarks/${id}`);
       setCurrentBookmarkList(data);
-      setIsLoadingCurrentBookmarkList(false);
     } catch (error) {
       toast.error(error?.message);
-      setIsLoadingCurrentBookmarkList(false);
+    } finally {
+      setIsLoading(false);
     }
   }
+  async function createBookmark(newBookmark) {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post(`${BASE_URL}/bookmarks/`, newBookmark);
+      setCurrentBookmarkList(data);
+      setBookmarks((prev) => [...prev, data]);
+    } catch (error) {
+      toast.error(error?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  async function deleteBookmark(id) {
+    setIsLoading(true);
+    try {
+      await axios.delete(`${BASE_URL}/bookmarks/${id}`);
+      setBookmarks((prev) => prev.filter((bookmark) => bookmark.id !== id));
+    } catch (error) {
+      toast.error(error?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <BookmarkListContext.Provider
       value={{
-        data,
+        bookmarks,
         isLoading,
         getBookmark,
         currentBookmarkList,
-        isLoadingCurrentBookmarkList,
+        createBookmark,
+        deleteBookmark,
       }}
     >
       {children}
