@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHotels } from "./context/HotelProvider";
 import {
   MapContainer,
   Marker,
@@ -8,7 +7,7 @@ import {
   useMap,
   useMapEvent,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useUrlLocation from "./hooks/useUrlLocation";
 
@@ -71,7 +70,7 @@ function DetectClick() {
   const navigate = useNavigate();
   useMapEvent({
     click: (e) =>
-      navigate(`/bookmark/add?lat=${e.latlng.lat} &lng=${e.latlng.lng} `),
+      navigate(`/bookmark/add?lat=${e.latlng.lat}&lng=${e.latlng.lng} `),
   });
   return null;
 }
