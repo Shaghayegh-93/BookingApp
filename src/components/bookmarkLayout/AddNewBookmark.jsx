@@ -3,6 +3,8 @@ import useUrlLocation from "../hooks/useUrlLocation";
 import axios from "axios";
 import Loader from "../Loader";
 import ReactCountryFlag from "react-country-flag";
+import { useBookmarkList } from "../context/BookmarkListProvider";
+import { useNavigate } from "react-router-dom";
 
 const BASE_GEOCODING_URL =
   "https://api.bigdatacloud.net/data/reverse-geocode-client";
@@ -14,9 +16,12 @@ const AddNewBookmark = () => {
   const [countryCode, setCountryCode] = useState("");
   const [isLoadingGeoCoding, setIsLoadinGeoCoding] = useState(false);
   const [geoCodinError, setGeoCodingError] = useState(null);
+  const { createBookmark } = useBookmarkList();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!lat || !lng) return;
+
     async function fetchLocationData() {
       setIsLoadinGeoCoding(true);
       setGeoCodingError(null);
@@ -40,12 +45,28 @@ const AddNewBookmark = () => {
     fetchLocationData();
   }, [lat, lng]);
 
+  const submitHandler = async(e) => {
+    e.preventDefault();
+    if (!cityName || !country) return;
+
+    const newBookmark = {
+      cityName,
+      country,
+      countryCode,
+      latitude: lat,
+      longitude: lng,
+      host_location: cityName + "" + country,
+    };
+    await createBookmark(newBookmark);
+    navigate("/bookmark");
+  };
+
   if (isLoadingGeoCoding) return <Loader />;
   if (geoCodinError) return <strong>{geoCodinError}</strong>;
   return (
     <div>
       <h2>Bookmark New Location</h2>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className="mb-4 relative">
           <label className="block mb-1" htmlFor="cityName">
             CityName
@@ -78,7 +99,13 @@ const AddNewBookmark = () => {
           />
         </div>
         <div className="flex items-center justify-between mt-8">
-          <button className="py-2 px-4 rounded-lg border border-tex400">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
+            className="py-2 px-4 rounded-lg border border-tex400"
+          >
             &larr; Back
           </button>
           <button className="py-2 px-4 rounded-lg border bg-primar600 text-white">
