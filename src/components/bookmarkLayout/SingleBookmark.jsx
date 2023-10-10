@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
 
 const SingleBookmark = () => {
-  const { getBookmark, currentBookmarkList, isLoadingCurrentBookmarkList } =
+  const { getBookmark, currentBookmarkList, isLoading } =
     useBookmarkList();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const SingleBookmark = () => {
     getBookmark(id);
   }, [id]);
 
-  if (isLoadingCurrentBookmarkList || !currentBookmarkList) return <Loader />;
+  if (isLoading || !currentBookmarkList) return <Loader />;
   return (
     <div>
       <button
