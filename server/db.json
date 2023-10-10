@@ -1334,15 +1334,6 @@
       "id": 1
     },
     {
-      "cityName": "Mahidasht",
-      "country": "Iran (Islamic Republic of)",
-      "countryCode": "IR",
-      "latitude": "34.32869425037187",
-      "longitude": "46.724183117022086",
-      "host_location": "Mahidasht Iran (Islamic Republic of)",
-      "id": 4
-    },
-    {
       "cityName": "Sanandaj",
       "country": "Iran (Islamic Republic of)",
       "countryCode": "IR",
@@ -1368,6 +1359,15 @@
       "longitude": "67.78003711374224",
       "host_location": "Baba Kot Pakistan",
       "id": 8
+    },
+    {
+      "cityName": "Bielawy",
+      "country": "Poland",
+      "countryCode": "PL",
+      "latitude": "52.12269681977903",
+      "longitude": "19.731445312500004",
+      "host_location": "BielawyPoland",
+      "id": 9
     }
   ]
 }
