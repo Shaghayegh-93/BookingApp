@@ -12,6 +12,8 @@ import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import {
+  Link,
+  NavLink,
   createSearchParams,
   useNavigate,
   useSearchParams,
@@ -51,6 +53,7 @@ const Header = () => {
 
   return (
     <div className="flex items-center justify-center gap-4">
+      <NavLink to="/bookmark">Bookmarks</NavLink>
       <div className="w-full max-w-[900px] flex  flex-col md:flex-row items-center justify-between gap-2 md:border border-[#ebe9e9] rounded-3xl p-4">
         <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl w-full md:w-fit">
           <MapPinIcon className="text-rose500 w-6 h-6 inline-block " />
@@ -113,6 +116,7 @@ const Header = () => {
           </button>
         </div>
       </div>
+      <NavLink to="/login">Login</NavLink>
     </div>
   );
 };
