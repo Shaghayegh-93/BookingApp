@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "./context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user, login, isAthenticated } = useAuth();
+  const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
-    
+    // if (email && password) login(email, password);
   };
+
+  useEffect(() => {
+    if (isAthenticated) navigate("/", { replace: true });
+  }, [isAthenticated]);
   return (
     <div className="my-8 mx-auto max-w-sm border border-tex300 p-4 rounded-2xl">
       <h2 className="mb-4 font-bold text-xl">Login</h2>
