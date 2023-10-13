@@ -54,11 +54,11 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
       <NavLink to="/bookmark">Bookmarks</NavLink>
       <div className="w-full max-w-[900px] flex  flex-col md:flex-row items-center justify-between gap-2 md:border border-[#ebe9e9] rounded-3xl p-4">
         <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl w-full md:w-fit">
-          <MapPinIcon className="text-rose500 w-6 h-6 inline-block " />
+          &nbsp; &nbsp;<MapPinIcon className="text-rose500 w-6 h-6 inline-block " />
           <input
             type="text"
             value={destination}
@@ -89,7 +89,7 @@ const Header = () => {
               className="absolute top-12 -left-1 z-20"
             />
           )}
-          <div className="mr-2 text-sm">2023</div>
+          <div className="mr-2 text-sm"></div>
           <span className="hidden md:inline-block h-[30px] w-[1px] bg-tex400 my-0 mx-4"></span>
         </div>
         <div className="flex items-center relative border md:border-none border-[#ebe9e9] rounded-3xl p-4 w-full md:w-fit cursor-pointer">
