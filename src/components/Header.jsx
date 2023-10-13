@@ -5,6 +5,7 @@ import {
   MapPinIcon,
   MinusIcon,
   PlusIcon,
+  ArrowLeftCircleIcon,
 } from "@heroicons/react/24/solid";
 import useOutsideClick from "./hooks/useOutsideClick";
 import "react-date-range/dist/styles.css";
@@ -18,6 +19,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
+import { useAuth } from "./context/AuthProvider";
 
 const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -116,7 +118,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <NavLink to="/login">Login</NavLink>
+      <User />
     </div>
   );
 };
@@ -173,6 +175,30 @@ function GusetOptionItem({ option, type, minLimit, optionHandler }) {
           <PlusIcon className="w-4 h-4 inline-block" />
         </button>
       </div>
+    </div>
+  );
+}
+
+function User() {
+  const { user, logout, isAthenticated } = useAuth();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    logout();
+    navigate("/");
+  };
+  return (
+    <div>
+      {isAthenticated ? (
+        <div>
+          <span className="font-bold">{user.name}</span>
+          <button onClick={logoutHandler}>
+            &nbsp;
+            <ArrowLeftCircleIcon className="w-4 h-4 inline-block text-red-500" />
+          </button>
+        </div>
+      ) : (
+        <NavLink to="/login">Login</NavLink>
+      )}
     </div>
   );
 }
