@@ -5,7 +5,6 @@ import { toast } from "react-hot-toast";
 export default function useFetch(url, query = "") {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(data)
 
   useEffect(() => {
     async function fetchData() {
