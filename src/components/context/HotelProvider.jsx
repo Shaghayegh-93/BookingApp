@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 const HotelContext = createContext();
 const BASE_URL = "http://localhost:5000/hotels";
+// const BASE_URL = "/server.js";
 
 function HotelProvider({ children }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +18,7 @@ function HotelProvider({ children }) {
     BASE_URL,
     `q=${destination || ""} &accommodates_gte=${room || 1}`
   );
+  console.log(data)
 
   async function getSingleHotel(id) {
     setIsLoadingCurrentHotel(true);
@@ -28,11 +30,18 @@ function HotelProvider({ children }) {
       toast.error(error.message);
       setIsLoadingCurrentHotel(false);
     }
-  
   }
 
   return (
-    <HotelContext.Provider value={{ isLoading, data,isLoadingCurrentHotel,currentHotel,getSingleHotel }}>
+    <HotelContext.Provider
+      value={{
+        isLoading,
+        data,
+        isLoadingCurrentHotel,
+        currentHotel,
+        getSingleHotel,
+      }}
+    >
       {children}
     </HotelContext.Provider>
   );
