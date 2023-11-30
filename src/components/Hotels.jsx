@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
-// import useFetch from "./hooks/useFetch";
 import { useHotels } from "./context/HotelProvider";
 
 const Hotels = () => {
